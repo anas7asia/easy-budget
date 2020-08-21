@@ -1,0 +1,25 @@
+<table>
+  <thead>{{ sheet.title }}</thead>
+  <tbody>
+    <tr>
+      <th>Label</th>
+      <th>Monthly</th>
+      <th>Yearly</th>
+    </tr>
+
+    <tr *ngFor="let item of sheet.items">
+      <td>{{ item.label }}</td>
+      <td>{{ item.monthly }}</td>
+      <td>{{ item.yearly }}</td>
+      <td>
+        <button>Delete</button>
+        <button>Move Up</button>
+        <button>Move Down</button>
+      </td>
+    </tr>
+    
+    <tr>
+      <button>Add row</button>
+    </tr>
+  </tbody>
+</table>

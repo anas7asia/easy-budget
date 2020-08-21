@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "easy-budget"
+    }
+  },
+  "defaultProject": "easy-budget",
+  "cli": {
+    "analytics": "8eae7042-7755-4a83-9084-9668952948f0"
+  }
 }
