@@ -1,0 +1,13 @@
+<ng-container *ngIf="!isFormVisible">
+  <button id="js-show-form" (click)="showForm()">Add a new sheet</button>
+</ng-container>
+
+<ng-container *ngIf="isFormVisible">
+  <form (submit)="submitForm()">
+    <input 
+      type="text"
+      [formControl]="addSheetControl" 
+      placeholder="Sheet Title">
+    <button type="submit" [disabled]="addSheetControl.invalid">Add</button>
+  </form>
+</ng-container>

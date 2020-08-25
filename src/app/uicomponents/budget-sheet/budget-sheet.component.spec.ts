@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { By } from '@angular/platform-browser';
-
+import { MockBudgetState } from '../../testing/mock-budget'
 import { BudgetSheetComponent } from './budget-sheet.component';
 
 describe('TableComponent', () => {
@@ -21,19 +20,11 @@ describe('TableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BudgetSheetComponent);
     component = fixture.componentInstance;
+    component.sheet = MockBudgetState.sheets[0];
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // it('should raise the delete event on delete item button click', () => {
-  //   const deleteBtn = fixture.debugElement.query(By.css('#js-delete-item'))
-  //   let deletedItem: number
-  //   component.deleted.subscribe(itemId => deletedItem = itemId)
-
-  //   deleteBtn.triggerEventHandler('click', null)
-  //   expect(deletedItem).toBe(1)
-  // });
 });

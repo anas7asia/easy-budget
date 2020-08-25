@@ -1,0 +1,24 @@
+<h1>Easy budget</h1>
+
+<section id="js-income">
+  <h2>Money In</h2>
+
+  <ng-container *ngFor="let s of incomeSheets$ | async">
+    <app-budget-sheet [sheet]="s"></app-budget-sheet>
+  </ng-container>
+
+  <app-add-budget-sheet (sheetAdded)="addNewSheet($event, BudgetCategoryId.income)"></app-add-budget-sheet>
+</section>
+
+<section id="js-expenses">
+  <h2>Money Out</h2>
+  <ng-container *ngFor="let s of expensesSheets$ | async">
+    <app-budget-sheet [sheet]="s"></app-budget-sheet>
+  </ng-container>
+
+  <app-add-budget-sheet (sheetAdded)="addNewSheet($event, BudgetCategoryId.expenses)"></app-add-budget-sheet>
+</section>
+
+<section>
+  <h2>Net Income</h2>
+</section>

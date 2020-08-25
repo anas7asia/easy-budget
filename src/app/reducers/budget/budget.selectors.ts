@@ -1,22 +1,22 @@
 import { createSelector } from '@ngrx/store';
-import { BudgetSheet, BudgetPlanner, BudgetCategory } from '../../interfaces/budget';
+import { BudgetSheet, Budget, BudgetCategory } from '../../interfaces/budget';
 
-export const selectSheets = (state: BudgetPlanner) => state.sheets
-export const selectRevenue = (state: BudgetPlanner) => state.revenue
-export const selectExpenses = (state: BudgetPlanner) => state.expenses
+export const selectSheets = (state: Budget) => state.sheets
+export const selectIncome = (state: Budget) => state.income
+export const selectExpenses = (state: Budget) => state.expenses
 
-export const selectRevenueSheets = createSelector(
-  selectRevenue,
+const selectSheetsForCategory = (category: BudgetCategory, allSheets: BudgetSheet[]) => {
+  return allSheets.filter((sheet: BudgetSheet) => sheet.categoryId === category.id) || []
+}
+
+export const selectIncomeSheets = createSelector(
+  selectIncome,
   selectSheets,
-  (category: BudgetCategory, allSheets: BudgetSheet[]) => {
-    return allSheets.filter((sheet: BudgetSheet) => sheet.categoryId === category.id) || []
-  }
+  selectSheetsForCategory
 )
 
 export const selectExpensesSheets = createSelector(
   selectExpenses,
   selectSheets,
-  (category: BudgetCategory, allSheets: BudgetSheet[]) => {
-    return allSheets.filter((sheet: BudgetSheet) => sheet.categoryId === category.id) || []
-  }
+  selectSheetsForCategory
 )

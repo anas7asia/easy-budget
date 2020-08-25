@@ -1,12 +1,12 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { BudgetPlanner } from '../interfaces/budget';
-import { budgetRevenueReducer, budgetExpensesReducer } from './budget/budget-category.reducers';
+import { Budget } from '../interfaces/budget';
+import { budgetIncomeReducer, budgetExpensesReducer } from './budget/budget-category.reducers';
 import { budgetSheetReducer } from './budget/budget-sheet.reducers';
 
-export interface State extends BudgetPlanner {}
+export interface State extends Budget {}
 
 export const reducers: ActionReducerMap<State> = {
-  revenue: budgetRevenueReducer,
+  income: budgetIncomeReducer,
   expenses: budgetExpensesReducer,
   sheets: budgetSheetReducer
 }

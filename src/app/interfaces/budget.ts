@@ -1,5 +1,5 @@
-export interface BudgetPlanner {
-  revenue: BudgetCategory
+export interface Budget {
+  income: BudgetCategory
   expenses: BudgetCategory
   profit?: BudgetProfit
   sheets: BudgetSheet[]
@@ -8,7 +8,6 @@ export interface BudgetPlanner {
 export interface BudgetCategory {
   id: number
   total: number
-  // totalMonthly: number
 }
 
 export interface BudgetSheet {

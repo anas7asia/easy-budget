@@ -3,8 +3,8 @@ import { updateTotal } from './budget-category.actions';
 import { BudgetCategory } from '../../interfaces/budget';
 import { BudgetCategoryId } from '../../constants';
  
-export const initialRevenueState: BudgetCategory = {
-  id: BudgetCategoryId.revenue,
+export const initialIncomeState: BudgetCategory = {
+  id: BudgetCategoryId.income,
   total: 0
 }
 
@@ -15,7 +15,7 @@ export const initialExpensesState: BudgetCategory = {
  
 const updateTotalReducer = state => state
 
-const _budgetRevenueReducer: ActionReducer<BudgetCategory> = createReducer(initialRevenueState,
+const _budgetIncomeReducer: ActionReducer<BudgetCategory> = createReducer(initialIncomeState,
   on(updateTotal, updateTotalReducer),
 )
 
@@ -23,8 +23,8 @@ const _budgetExpensesReducer: ActionReducer<BudgetCategory> = createReducer(init
   on(updateTotal, updateTotalReducer),
 )
  
-export function budgetRevenueReducer(state, action) {
-  return _budgetRevenueReducer(state, action)
+export function budgetIncomeReducer(state, action) {
+  return _budgetIncomeReducer(state, action)
 }
 
 export function budgetExpensesReducer(state, action) {
