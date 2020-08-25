@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { MockBudgetState } from '../../testing/mock-budget'
 import { BudgetSheetComponent } from './budget-sheet.component';
 
-describe('TableComponent', () => {
+describe('BudgetSheetComponent', () => {
   let component: BudgetSheetComponent;
   let fixture: ComponentFixture<BudgetSheetComponent>;
 
@@ -26,5 +26,15 @@ describe('TableComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should calculate monthly subtotal', () => {
+    const subtotal = fixture.nativeElement.querySelector('#js-monthly-subtotal');
+    expect(subtotal.textContent).toContain(3000);
+  });
+
+  it('should calculate yearly subtotal', () => {
+    const subtotal = fixture.nativeElement.querySelector('#js-yearly-subtotal');
+    expect(subtotal.textContent).toContain(36000);
   });
 });

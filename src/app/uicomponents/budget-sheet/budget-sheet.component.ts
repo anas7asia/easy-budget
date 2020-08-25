@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { BudgetSheet } from '../../interfaces/budget';
+import { BudgetSheet, BudgetSheetItem } from '../../interfaces/budget';
 
 @Component({
   selector: 'app-budget-sheet',
@@ -14,6 +14,12 @@ export class BudgetSheetComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  calcSubtotal(property: 'monthly'|'yearly') {
+    return this.sheet.items.reduce((acc: number, item: BudgetSheetItem) => {
+      return acc + item[property]
+    }, 0)
   }
 
 }
