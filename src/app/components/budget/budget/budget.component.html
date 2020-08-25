@@ -3,6 +3,9 @@
 <section id="js-income">
   <h2>Money In</h2>
 
+  <p>Total monthly income: {{ monthlyIncome$ | async }}</p>
+  <p>Total yearly income: {{ yearlyIncome$ | async }}</p>
+
   <ng-container *ngFor="let s of incomeSheets$ | async">
     <app-budget-sheet [sheet]="s"></app-budget-sheet>
   </ng-container>
@@ -12,6 +15,10 @@
 
 <section id="js-expenses">
   <h2>Money Out</h2>
+
+  <p>Total monthly expenses: {{ monthlyExpenses$ | async }}</p>
+  <p>Total yearly expenses: {{ yearlyExpenses$ | async }}</p>
+
   <ng-container *ngFor="let s of expensesSheets$ | async">
     <app-budget-sheet [sheet]="s"></app-budget-sheet>
   </ng-container>

@@ -7,7 +7,6 @@ export interface Budget {
 
 export interface BudgetCategory {
   id: number
-  total: number
 }
 
 export interface BudgetSheet {

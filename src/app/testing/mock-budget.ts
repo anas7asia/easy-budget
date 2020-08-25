@@ -3,12 +3,10 @@ import { BudgetCategoryId } from "../constants";
 
 export const MockBudgetState: Budget = {
   income: {
-    id: BudgetCategoryId.income,
-    total: 3110
+    id: BudgetCategoryId.income
   },
   expenses: {
-    id: BudgetCategoryId.expenses,
-    total: 630
+    id: BudgetCategoryId.expenses
   },
   sheets: [
     {

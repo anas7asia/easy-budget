@@ -4,13 +4,11 @@ import { BudgetCategory } from '../../interfaces/budget';
 import { BudgetCategoryId } from '../../constants';
  
 export const initialIncomeState: BudgetCategory = {
-  id: BudgetCategoryId.income,
-  total: 0
+  id: BudgetCategoryId.income
 }
 
 export const initialExpensesState: BudgetCategory = {
-  id: BudgetCategoryId.expenses,
-  total: 0
+  id: BudgetCategoryId.expenses
 }
  
 const updateTotalReducer = state => state

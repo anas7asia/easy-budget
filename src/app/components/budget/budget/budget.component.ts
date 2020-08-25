@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { selectIncome, selectExpenses, selectIncomeSheets, selectExpensesSheets, selectSheets } from '../../../reducers/budget/budget.selectors';
+import { selectIncome, selectExpenses, selectIncomeSheets, selectExpensesSheets, selectSheets, selectMonthlyIncome, selectYearlyIncome, selectMonthlyExpenses, selectYearlyExpenses } from '../../../reducers/budget/budget.selectors';
 import { addSheet } from '../../../reducers/budget/budget-sheet.actions';
 import { Budget, BudgetSheet, BudgetCategory } from '../../../interfaces/budget';
 import { BudgetCategoryId } from '../../../constants';
@@ -18,6 +18,10 @@ export class BudgetComponent implements OnInit {
   expenses$: Observable<BudgetCategory> = this.store.pipe(select(selectExpenses))
   incomeSheets$: Observable<BudgetSheet[]> = this.store.pipe(select(selectIncomeSheets))
   expensesSheets$: Observable<BudgetSheet[]> = this.store.pipe(select(selectExpensesSheets))
+  monthlyIncome$: Observable<number> = this.store.pipe(select(selectMonthlyIncome))
+  yearlyIncome$: Observable<number> = this.store.pipe(select(selectYearlyIncome))
+  monthlyExpenses$: Observable<number> = this.store.pipe(select(selectMonthlyExpenses))
+  yearlyExpenses$: Observable<number> = this.store.pipe(select(selectYearlyExpenses))
 
   // Increment by 1 the last sheet's id to get a new sheet's id
   newSheetId$: Observable<number> = this.store.pipe(

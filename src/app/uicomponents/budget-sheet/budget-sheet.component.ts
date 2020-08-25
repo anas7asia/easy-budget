@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { BudgetSheet, BudgetSheetItem } from '../../interfaces/budget';
+import { BudgetProperties } from '../../constants';
 
 @Component({
   selector: 'app-budget-sheet',
@@ -10,13 +11,14 @@ import { BudgetSheet, BudgetSheetItem } from '../../interfaces/budget';
 export class BudgetSheetComponent implements OnInit {
 
   @Input() sheet: BudgetSheet
+  readonly BudgetProperties = BudgetProperties
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  calcSubtotal(property: 'monthly'|'yearly') {
+  calcSubtotal(property: string): number {
     return this.sheet.items.reduce((acc: number, item: BudgetSheetItem) => {
       return acc + item[property]
     }, 0)
