@@ -6,12 +6,13 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../../reducers';
 import { initialState } from '../../../reducers/budget/budget-sheet.reducers';
 
-import { BudgetSheet } from '../../../interfaces/budget';
+import { BudgetSheet, BudgetSheetItem } from '../../../interfaces/budget';
 import { BudgetCategoryId } from '../../../constants';
 
 import { BudgetComponent } from './budget.component';
-import { AddBudgetSheetComponent } from '../../../uicomponents/add-budget-sheet/add-budget-sheet.component';
-import { BudgetSheetComponent } from '../../../uicomponents/budget-sheet/budget-sheet.component';
+import { AddBudgetSheetComponent } from '../add-budget-sheet/add-budget-sheet.component';
+import { BudgetSheetComponent } from '../budget-sheet/budget-sheet.component';
+import { MockBudgetState } from 'src/app/testing/mock-budget';
 
 describe('BudgetComponent', () => {
   let comp: BudgetComponent;
@@ -66,5 +67,29 @@ describe('BudgetComponent', () => {
     const expensesSheets = expensesSheetsContainer.queryAll(By.css('app-budget-sheet'));
 
     expect(expensesSheets[expensesSheets.length - 1].context.sheet).toEqual(expectedNewSheet);
+  });
+
+  xit('should add a new item to an existing sheet', () => {
+    const newItem: BudgetSheetItem = {
+      id: 2,
+      label: 'Bonus',
+      monthly: 100,
+      yearly: 1200
+    };
+
+    const newSheet: BudgetSheet = {
+      title: MockBudgetState.sheets[0].title,
+      categoryId: MockBudgetState.sheets[0].categoryId,
+      id: 2,
+      items: [...MockBudgetState.sheets[0].items, newItem]
+    }
+
+    comp.updateSheet(newSheet);
+    fixture.detectChanges();
+
+    const expensesSheetsContainer = fixture.debugElement.query(By.css('#js-income'));
+    const expensesSheets = expensesSheetsContainer.queryAll(By.css('app-budget-sheet'));
+
+    expect(expensesSheets[0].context.sheet.items.length).toEqual(MockBudgetState.sheets[1].items.length + 1);
   });
 });

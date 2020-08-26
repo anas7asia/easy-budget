@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { selectIncome, selectExpenses, selectIncomeSheets, selectExpensesSheets, selectSheets, selectMonthlyIncome, selectYearlyIncome, selectMonthlyExpenses, selectYearlyExpenses } from '../../../reducers/budget/budget.selectors';
-import { addSheet } from '../../../reducers/budget/budget-sheet.actions';
-import { Budget, BudgetSheet, BudgetCategory } from '../../../interfaces/budget';
+import { addSheet, updateSheet } from '../../../reducers/budget/budget-sheet.actions';
+import { Budget, BudgetSheet, BudgetCategory, BudgetSheetItem } from '../../../interfaces/budget';
 import { BudgetCategoryId } from '../../../constants';
 
 @Component({
@@ -41,6 +41,10 @@ export class BudgetComponent implements OnInit {
       .subscribe(id => {
         this.store.dispatch(addSheet({ sheet: { title, categoryId, id, items: [] }}));
     })
+  }
+
+  updateSheet(sheet: BudgetSheet) {
+    this.store.dispatch(updateSheet({sheet}))
   }
 
   ngOnDestroy() {

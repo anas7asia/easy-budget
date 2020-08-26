@@ -6,12 +6,12 @@ export interface Budget {
 }
 
 export interface BudgetCategory {
-  id: number
+  readonly id: number
 }
 
 export interface BudgetSheet {
-  id: number
-  categoryId: number
+  readonly id: number
+  readonly categoryId: number
   title: string
   items?: BudgetSheetItem[]
 }
@@ -21,7 +21,6 @@ export interface BudgetSheetItem {
   id: number
   yearly: number
   monthly: number
-  note?: string
 }
 
 export interface BudgetProfit {

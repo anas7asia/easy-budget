@@ -1,4 +1,4 @@
-import { Budget } from "../interfaces/budget";
+import { Budget, BudgetSheetItem, BudgetSheet } from "../interfaces/budget";
 import { BudgetCategoryId } from "../constants";
 
 export const MockBudgetState: Budget = {
@@ -37,4 +37,21 @@ export const MockBudgetState: Budget = {
       ]
     }
   ]
+}
+
+export const MockBudgetSheet: BudgetSheet = {
+  id: 2,
+  title: 'Transport',
+  categoryId: BudgetCategoryId.expenses,
+  items: [
+    { id: 0, label: 'Car', yearly: 2400, monthly: 200 },
+    { id: 1, label: 'Gas', yearly: 960, monthly: 80 }
+  ]
+}
+
+export const MockBudgetSheetItem: BudgetSheetItem = {
+  id: 2,
+  label: 'Bonus',
+  monthly: 100,
+  yearly: 1200
 }

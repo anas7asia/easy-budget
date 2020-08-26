@@ -1,5 +1,5 @@
 import { createReducer, on, ActionReducer } from '@ngrx/store';
-import { addItem, editItem, deleteItem, addSheet, editSheet, deleteSheet } from './budget-sheet.actions';
+import { addSheet, updateSheet, deleteSheet } from './budget-sheet.actions';
 import { BudgetSheet } from '../../interfaces/budget';
 import { BudgetCategoryId } from '../../constants';
  
@@ -35,11 +35,8 @@ export const initialState: BudgetSheet[] = [
  
 const _budgetSheetReducer: ActionReducer<BudgetSheet[]> = createReducer(initialState,
   on(addSheet, (state, payload) => [...state, payload.sheet]),
-  on(editSheet, state => state),
-  on(deleteSheet, state => state),
-  on(addItem, state => [...state] ),
-  on(editItem, state => [...state]),
-  on(deleteItem, state => [...state])
+  on(updateSheet, (state, payload) => state.map(sheet => sheet.id === payload.sheet.id ? payload.sheet : sheet)),
+  on(deleteSheet, state => state)
 )
  
 export function budgetSheetReducer(state, action) {

@@ -1,16 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BudgetComponent } from './budget/budget.component';
-import { UiComponentsModule } from '../../uicomponents/uicomponents.module';
+import { AddBudgetSheetComponent } from './add-budget-sheet/add-budget-sheet.component';
+import { BudgetSheetComponent } from './budget-sheet/budget-sheet.component';
 
 @NgModule({
   declarations: [
-    BudgetComponent
+    BudgetComponent,
+    BudgetSheetComponent,
+    AddBudgetSheetComponent
   ],
   imports: [
-    UiComponentsModule,
-    CommonModule
+    CommonModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     BudgetComponent
