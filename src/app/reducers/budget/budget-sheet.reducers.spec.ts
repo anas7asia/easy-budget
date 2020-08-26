@@ -1,5 +1,5 @@
 import { budgetSheetReducer } from './budget-sheet.reducers';
-import { addSheet, updateSheet } from './budget-sheet.actions';
+import { addSheet, updateSheet, deleteSheet } from './budget-sheet.actions';
 import { MockBudgetState, MockBudgetSheet } from 'src/app/testing/mock-budget';
 
 describe('Budget Sheet Reducers', () => {
@@ -28,5 +28,14 @@ describe('Budget Sheet Reducers', () => {
       
     const result = budgetSheetReducer(initialState, updateSheet({sheet: newSheet }))
     expect(result[result.length-1].title).toBe(newSheet.title);
+  });
+
+  it('should delete a certain sheet', () => {
+    const initialState = MockBudgetState.sheets;
+    const sheetToDelete = MockBudgetState.sheets[0];
+
+    /* check the first sheet in the array of sheets is no more there */
+    const result = budgetSheetReducer(initialState, deleteSheet({sheet: sheetToDelete}));
+    expect(result[0]).not.toBe(sheetToDelete);
   });
 });

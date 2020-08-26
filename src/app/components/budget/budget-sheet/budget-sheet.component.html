@@ -1,5 +1,8 @@
 <table>
-  <thead>{{ sheet.title }}</thead>
+  <thead>
+    <p>{{ sheet.title }}</p> 
+    <div><button (click)="deleteSheet()">Delete</button></div>
+  </thead>
   <tbody>
     <tr>
       <th>Label</th>

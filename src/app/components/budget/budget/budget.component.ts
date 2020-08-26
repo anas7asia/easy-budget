@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { selectIncome, selectExpenses, selectIncomeSheets, selectExpensesSheets, selectSheets, selectMonthlyIncome, selectYearlyIncome, selectMonthlyExpenses, selectYearlyExpenses } from '../../../reducers/budget/budget.selectors';
-import { addSheet, updateSheet } from '../../../reducers/budget/budget-sheet.actions';
+import { addSheet, updateSheet, deleteSheet } from '../../../reducers/budget/budget-sheet.actions';
 import { Budget, BudgetSheet, BudgetCategory, BudgetSheetItem } from '../../../interfaces/budget';
 import { BudgetCategoryId } from '../../../constants';
+import { State } from 'src/app/reducers';
 
 @Component({
   selector: 'app-budget',
@@ -26,12 +27,12 @@ export class BudgetComponent implements OnInit {
   // Increment by 1 the last sheet's id to get a new sheet's id
   newSheetId$: Observable<number> = this.store.pipe(
     select(selectSheets),
-    map(sheets => sheets[sheets.length - 1]),
-    map(lastSheet => lastSheet.id + 1))
+    // take the last sheet id or start from 0
+    map(sheets => sheets.length > 0 ? sheets[sheets.length - 1].id + 1 : 0)) 
 
   readonly BudgetCategoryId = BudgetCategoryId
  
-  constructor(private store: Store<Budget>) {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {}
 
@@ -45,6 +46,10 @@ export class BudgetComponent implements OnInit {
 
   updateSheet(sheet: BudgetSheet) {
     this.store.dispatch(updateSheet({sheet}))
+  }
+
+  deleteSheet(sheet: BudgetSheet) {
+    this.store.dispatch(deleteSheet({sheet}))
   }
 
   ngOnDestroy() {

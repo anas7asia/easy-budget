@@ -14,6 +14,7 @@ export class BudgetSheetComponent {
 
   @Input() sheet: BudgetSheet
   @Output() sheetUpdated = new EventEmitter<BudgetSheet>()
+  @Output() sheetDeleted = new EventEmitter<BudgetSheet>()
   readonly BudgetProperties = BudgetProperties
   isAddingItem = false
   newItemForm = new FormGroup({
@@ -79,8 +80,11 @@ export class BudgetSheetComponent {
       {},
       this.sheet,
       { items: this.sheet.items.filter(i => i.id !== itemId) })
-      
+
     this.sheetUpdated.emit(updatedSheet)
   }
 
+  deleteSheet() {
+    this.sheetDeleted.emit(this.sheet);
+  }
 }

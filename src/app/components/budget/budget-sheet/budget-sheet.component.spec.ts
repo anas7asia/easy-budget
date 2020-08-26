@@ -176,7 +176,7 @@ describe('BudgetSheetComponent', () => {
     expect(sheet.items[sheet.items.length-1].monthly).toBe(648.08);
   });
 
-  it('should delete an item from a sheet', () => {
+  it('should delete an item from the sheet', () => {
     comp.sheet = MockBudgetSheet;
     fixture.detectChanges();
 
@@ -188,4 +188,11 @@ describe('BudgetSheetComponent', () => {
     expect(sheet.items.length).toBe(MockBudgetSheet.items.length - 1);
   });
 
+  it('should delete the sheet', () => {
+    let sheet: BudgetSheet;
+    comp.sheetDeleted.subscribe(e => sheet = e);
+
+    comp.deleteSheet();
+    expect(sheet).toEqual(comp.sheet);
+  });
 });

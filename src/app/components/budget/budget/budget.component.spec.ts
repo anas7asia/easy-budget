@@ -1,22 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { MockComponent } from 'ng-mocks';
 
-import { StoreModule } from '@ngrx/store';
-import { reducers } from '../../../reducers';
-import { initialState } from '../../../reducers/budget/budget-sheet.reducers';
-
-import { BudgetSheet, BudgetSheetItem } from '../../../interfaces/budget';
-import { BudgetCategoryId } from '../../../constants';
+import { MockBudgetState } from 'src/app/testing/mock-budget';
 
 import { BudgetComponent } from './budget.component';
-import { AddBudgetSheetComponent } from '../add-budget-sheet/add-budget-sheet.component';
 import { BudgetSheetComponent } from '../budget-sheet/budget-sheet.component';
-import { MockBudgetState } from 'src/app/testing/mock-budget';
+import { AddBudgetSheetComponent } from '../add-budget-sheet/add-budget-sheet.component';
 
 describe('BudgetComponent', () => {
   let comp: BudgetComponent;
   let fixture: ComponentFixture<BudgetComponent>;
+  let mockStore: MockStore;
+  // let mockSheetsSelector: MemoizedSelector<State, BudgetSheet[]>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,14 +21,16 @@ describe('BudgetComponent', () => {
         MockComponent(AddBudgetSheetComponent),
         MockComponent(BudgetSheetComponent),
       ],
-      // WARNING: integrational tests with the real store
-      imports: [StoreModule.forRoot(reducers)],
+      providers: [provideMockStore({
+        initialState: MockBudgetState,
+      })]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BudgetComponent);
+    mockStore = TestBed.inject(MockStore);
     comp = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -41,55 +39,24 @@ describe('BudgetComponent', () => {
     expect(comp).toBeTruthy();
   });
 
-  it('should add new sheet to the store', () => {
-    comp.addNewSheet('Transport', BudgetCategoryId.expenses);
-    fixture.detectChanges();
-
-    let expensesSheetsContainer = fixture.nativeElement.querySelector('#js-expenses');
-    let expensesSheets = expensesSheetsContainer.querySelectorAll('app-budget-sheet');
-
-    const expectedLength = initialState.filter(s => s.categoryId === BudgetCategoryId.expenses).length + 1
-    expect(expensesSheets.length).toBe(expectedLength);
+  it('should calculate an id for a new sheet if there are already some sheets', () => {
+    let result: number;
+    comp.newSheetId$.subscribe(id => result = id);
+    expect(result).toBe(MockBudgetState.sheets[MockBudgetState.sheets.length-1].id + 1);
   });
 
-  it('should create a new sheet with proper data', () => {
-    const expectedNewSheet: BudgetSheet = {
-      id: initialState[initialState.length - 1].id + 1,
-      categoryId: BudgetCategoryId.expenses,
-      title: 'Transport',
-      items: []
-    }
+  /*
+  This test would work if selectSheets selector were a MemoizedSelector as overrideSelector demands:
 
-    comp.addNewSheet('Transport', BudgetCategoryId.expenses);
-    fixture.detectChanges();
+  export const selectSheets = createSelector((state: Budget) => state.sheets, (sheets) => sheets)
 
-    const expensesSheetsContainer = fixture.debugElement.query(By.css('#js-expenses'));
-    const expensesSheets = expensesSheetsContainer.queryAll(By.css('app-budget-sheet'));
+  it('should calculate an id for a new sheet if there is no sheets yet', () => {
+    mockSheetsSelector = mockStore.overrideSelector(selectSheets, []);
+    mockStore.refreshState();
 
-    expect(expensesSheets[expensesSheets.length - 1].context.sheet).toEqual(expectedNewSheet);
-  });
-
-  xit('should add a new item to an existing sheet', () => {
-    const newItem: BudgetSheetItem = {
-      id: 2,
-      label: 'Bonus',
-      monthly: 100,
-      yearly: 1200
-    };
-
-    const newSheet: BudgetSheet = {
-      title: MockBudgetState.sheets[0].title,
-      categoryId: MockBudgetState.sheets[0].categoryId,
-      id: 2,
-      items: [...MockBudgetState.sheets[0].items, newItem]
-    }
-
-    comp.updateSheet(newSheet);
-    fixture.detectChanges();
-
-    const expensesSheetsContainer = fixture.debugElement.query(By.css('#js-income'));
-    const expensesSheets = expensesSheetsContainer.queryAll(By.css('app-budget-sheet'));
-
-    expect(expensesSheets[0].context.sheet.items.length).toEqual(MockBudgetState.sheets[1].items.length + 1);
-  });
+    let result: number;
+    comp.newSheetId$.subscribe(id => result = id);
+    expect(result).toBe(0);
+  }); 
+  */
 });

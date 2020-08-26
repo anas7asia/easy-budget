@@ -36,7 +36,7 @@ export const initialState: BudgetSheet[] = [
 const _budgetSheetReducer: ActionReducer<BudgetSheet[]> = createReducer(initialState,
   on(addSheet, (state, payload) => [...state, payload.sheet]),
   on(updateSheet, (state, payload) => state.map(sheet => sheet.id === payload.sheet.id ? payload.sheet : sheet)),
-  on(deleteSheet, state => state)
+  on(deleteSheet, (state, payload) => state.filter(sheet => sheet.id !== payload.sheet.id))
 )
  
 export function budgetSheetReducer(state, action) {
