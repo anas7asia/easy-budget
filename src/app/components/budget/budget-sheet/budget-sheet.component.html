@@ -12,7 +12,7 @@
       <td>{{ item.monthly }}</td>
       <td>{{ item.yearly }}</td>
       <td>
-        <button>Delete</button>
+        <button (click)="deleteItem(item.id)">Delete</button>
         <!-- <button>Move Up</button>
         <button>Move Down</button> -->
       </td>

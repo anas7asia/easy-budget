@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { MockBudgetState } from '../../../testing/mock-budget'
+import { MockBudgetState, MockBudgetSheet } from '../../../testing/mock-budget'
 import { BudgetSheetComponent } from './budget-sheet.component';
 import { BudgetSheetItem, BudgetSheet } from '../../../interfaces/budget';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -174,6 +174,18 @@ describe('BudgetSheetComponent', () => {
     comp.newItemForm.patchValue({ yearly: 7777 });
     comp.addNewItem();
     expect(sheet.items[sheet.items.length-1].monthly).toBe(648.08);
+  });
+
+  it('should delete an item from a sheet', () => {
+    comp.sheet = MockBudgetSheet;
+    fixture.detectChanges();
+
+    let sheet: BudgetSheet;
+    comp.sheetUpdated.subscribe(e => sheet = e);
+
+    comp.deleteItem(MockBudgetSheet.items[MockBudgetSheet.items.length - 1].id);
+
+    expect(sheet.items.length).toBe(MockBudgetSheet.items.length - 1);
   });
 
 });

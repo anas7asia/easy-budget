@@ -74,4 +74,13 @@ export class BudgetSheetComponent {
     }
   }
 
+  deleteItem(itemId: number) {
+    const updatedSheet = Object.assign(
+      {},
+      this.sheet,
+      { items: this.sheet.items.filter(i => i.id !== itemId) })
+      
+    this.sheetUpdated.emit(updatedSheet)
+  }
+
 }
