@@ -1,0 +1,21 @@
+@import 'variables.scss';
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 90%;
+
+}
+
+.page-title {
+  font-family: $font-pretty;
+}
+
+.category {
+  margin-bottom: 4rem;
+}
+
+.category-title {
+  margin-bottom: 1rem;
+  font-family: $font-pretty;
+  font-size: 1.75rem;
+}

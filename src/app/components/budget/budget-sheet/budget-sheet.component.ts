@@ -30,7 +30,7 @@ export class BudgetSheetComponent {
   }
 
   showAddItemForm() {
-    this.isAddingItem = true
+    this.isAddingItem = !this.isAddingItem
   }
 
   /** 

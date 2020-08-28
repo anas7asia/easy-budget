@@ -28,9 +28,15 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/normalize.css/normalize.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/style"
+              ]
+            }
           },
           "configurations": {
             "production": {

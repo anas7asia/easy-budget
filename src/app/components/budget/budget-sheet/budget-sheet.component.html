@@ -1,45 +1,65 @@
-<table>
-  <thead>
-    <p>{{ sheet.title }}</p> 
-    <div><button (click)="deleteSheet()">Delete</button></div>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Label</th>
-      <th>Monthly</th>
-      <th>Yearly</th>
-    </tr>
+<section class="sheet-container">
+  <div class="sheet-header">
+    <h3 class="sheet-title">{{ sheet.title }}</h3> 
+    <button class="btn-delete-sheet" (click)="deleteSheet()" title="Delete">
+      <span class="fas fa-trash"></span>
+    </button>
+  </div>
 
-    <tr *ngFor="let item of sheet.items">
-      <td>{{ item.label }}</td>
-      <td>{{ item.monthly }}</td>
-      <td>{{ item.yearly }}</td>
-      <td>
-        <button (click)="deleteItem(item.id)">Delete</button>
-        <!-- <button>Move Up</button>
-        <button>Move Down</button> -->
-      </td>
-    </tr>
+  <hr>
 
-    <tr>
-      <td>Subtotal</td>
-      <td id="js-monthly-subtotal">{{ calcSubtotal(BudgetProperties.monthly) }}</td>
-      <td id="js-yearly-subtotal">{{ calcSubtotal(BudgetProperties.yearly) }}</td>
-    </tr>
+  <table>
+
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Monthly</th>
+        <th>Yearly</th>
+        <th>%</th>
+        <th></th>
+      </tr>
+    </thead>
     
-  </tbody>
-</table>
+    <tbody>
+      <tr *ngFor="let item of sheet.items">
+        <td>{{ item.label }}</td>
+        <td>{{ item.monthly }}</td>
+        <td>{{ item.yearly }}</td>
+        <td>%</td>
+        <td>
+          <button class="btn-delete-item" title="Delete this item" (click)="deleteItem(item.id)">
+            <span class="fas fa-trash"></span>
+          </button>
+        </td>
+      </tr>
 
-<div>
-  <ng-container *ngIf="!isAddingItem">
-    <button id="js-add-item" (click)="showAddItemForm()">Add row</button>
-  </ng-container>
-  <ng-container *ngIf="isAddingItem">
-    <form [formGroup]="newItemForm" (submit)="addNewItem()">
-      <input formControlName="label" type="text" placeholder="Label">
-      <input formControlName="monthly" type="number" placeholder="Monthly amount">
-      <input formControlName="yearly" type="number" placeholder="Yearly amount">
-      <button type="submit" [disabled]="!newItemForm.valid">Add New Row</button>
-    </form>
-  </ng-container>
-</div>
+      <tr>
+        <td colspan="5" class="add-row-container">
+          <button class="btn-add-row" id="js-add-item" (click)="showAddItemForm()">
+            <ng-container *ngIf="!isAddingItem">+</ng-container>
+            <ng-container *ngIf="isAddingItem">-</ng-container>
+          </button>
+
+          <ng-container *ngIf="isAddingItem">
+            <form class="form-add-item" [formGroup]="newItemForm" (submit)="addNewItem()">
+                <input formControlName="label" type="text" placeholder="Label">
+                <input formControlName="monthly" type="number" placeholder="10">
+                <input formControlName="yearly" type="number" placeholder="120">
+                <button type="submit" [disabled]="!newItemForm.valid">Add</button>
+            </form>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>    
+
+    <tfoot>
+      <tr>
+        <td>Subtotal</td>
+        <td id="js-monthly-subtotal">{{ calcSubtotal(BudgetProperties.monthly) }}</td>
+        <td id="js-yearly-subtotal">{{ calcSubtotal(BudgetProperties.yearly) }}</td>
+        <td colspan="2">%</td>
+      </tr>
+    </tfoot>
+  </table>
+  
+</section>
