@@ -31,6 +31,7 @@ describe('BudgetSheetComponent', () => {
     fixture = TestBed.createComponent(BudgetSheetComponent);
     comp = fixture.componentInstance;
     comp.sheet = MockBudgetState.sheets[0];
+    comp.totalYearlyIncome = 37320;
     fixture.detectChanges();
   });
 
@@ -194,5 +195,15 @@ describe('BudgetSheetComponent', () => {
 
     comp.deleteSheet();
     expect(sheet).toEqual(comp.sheet);
+  });
+
+  // percentage is the forth column in a sheet
+  it('should calculate percentage of total income for an item', () => {
+
+    const tableRows = fixture.nativeElement.querySelectorAll('tbody tr');
+    const percentage = tableRows[0].querySelectorAll('td')[3].textContent;
+    // in mock state the yearly amount of the first item of the first sheet is 18000
+    // 18000 is 48.23% of comp.totalYearlyIncome = 37320;
+    expect(percentage).toBe('48.23%');
   });
 });

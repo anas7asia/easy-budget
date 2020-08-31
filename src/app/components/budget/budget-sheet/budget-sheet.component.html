@@ -25,7 +25,7 @@
         <td>{{ item.label }}</td>
         <td>{{ item.monthly }}</td>
         <td>{{ item.yearly }}</td>
-        <td>%</td>
+        <td>{{ calcPercentage(item.yearly) }}%</td>
         <td>
           <button class="btn-delete-item" title="Delete this item" (click)="deleteItem(item.id)">
             <span class="fas fa-trash"></span>
@@ -57,7 +57,7 @@
         <td>Subtotal</td>
         <td id="js-monthly-subtotal">{{ calcSubtotal(BudgetProperties.monthly) }}</td>
         <td id="js-yearly-subtotal">{{ calcSubtotal(BudgetProperties.yearly) }}</td>
-        <td colspan="2">%</td>
+        <td colspan="2">{{ calcPercentage(calcSubtotal(BudgetProperties.yearly)) }}%</td>
       </tr>
     </tfoot>
   </table>
