@@ -6,8 +6,12 @@
   <form (submit)="submitForm()">
     <input 
       type="text"
+      class="input-add-sheet"
       [formControl]="addSheetControl" 
       placeholder="Sheet Title">
-    <button type="submit" [disabled]="addSheetControl.invalid">Add</button>
+
+    <button 
+      type="submit"
+      [disabled]="addSheetControl.invalid">Add</button>
   </form>
 </ng-container>

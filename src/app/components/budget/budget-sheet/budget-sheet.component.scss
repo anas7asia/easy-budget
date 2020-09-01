@@ -63,7 +63,7 @@ table th {
   border-bottom: 1px solid $gray-primary;
 
   &:first-child {
-    width: 35%;
+    width: $first-column-width;
   }
   
   &:nth-child(2),
@@ -148,17 +148,11 @@ when a sheet container is hovered over, all the actions become visible
 
 
 /* 
-
 Add item Form 
 */
 .form-add-item {
   display: grid;
-  grid-template-columns: 35% 19% 19% 15%; // partially imitates table layout
+  grid-template-columns: $first-column-width 19% 19% 15%; // partially imitates table layout
   grid-column-gap: 1%;
   padding-top: .35rem;
-
-  input {
-    padding: .35rem;
-    border: 1px solid $gray-primary;
-  }
 }
