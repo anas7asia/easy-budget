@@ -6,7 +6,9 @@
     </button>
   </div>
 
-  <hr>
+  <hr 
+    [style.width]="calcPercentage(calcSubtotal(BudgetProperties.yearly)) + '%'"
+    [style.backgroundColor]="Colors[this.sheet.id]">
 
   <table>
 
@@ -45,7 +47,10 @@
                 <input formControlName="label" type="text" placeholder="Label">
                 <input formControlName="monthly" type="number" placeholder="10">
                 <input formControlName="yearly" type="number" placeholder="120">
-                <button type="submit" [disabled]="!newItemForm.valid">Add</button>
+                <button 
+                  type="submit" 
+                  [disabled]="!newItemForm.valid"
+                  [style.backgroundColor]="Colors[this.sheet.id]">Add</button>
             </form>
           </ng-container>
         </td>

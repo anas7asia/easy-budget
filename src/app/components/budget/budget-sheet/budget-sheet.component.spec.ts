@@ -12,6 +12,10 @@ const mockFormValue = {
   yearly: 2400
 }
 
+// browser transforms hex colors to rgb, rgb is used for testing only
+// see more on this issue: https://stackoverflow.com/questions/57990961/how-to-test-style-background-color-attribute
+const mockColorPalette = ['rgb(0, 0, 0)', 'rgb(255, 255, 255)'];
+
 describe('BudgetSheetComponent', () => {
   let comp: BudgetSheetComponent;
   let fixture: ComponentFixture<BudgetSheetComponent>;
@@ -32,6 +36,7 @@ describe('BudgetSheetComponent', () => {
     comp = fixture.componentInstance;
     comp.sheet = MockBudgetState.sheets[0];
     comp.totalYearlyIncome = 37320;
+    comp.Colors = mockColorPalette;
     fixture.detectChanges();
   });
 
@@ -205,5 +210,31 @@ describe('BudgetSheetComponent', () => {
     // in mock state the yearly amount of the first item of the first sheet is 18000
     // 18000 is 48.23% of comp.totalYearlyIncome = 37320;
     expect(percentage).toBe('48.23%');
+  });
+
+  it('should calculate percentage of total income for a sheet', () => {
+    // [Salary] 36000 of 37320 is 96.46%;
+   const percentage = fixture.nativeElement.querySelectorAll('tfoot td')[3].textContent;
+   expect(percentage).toBe('96.46%');
+  });
+
+  it('should display subtotal percentage of income', () => {
+    // check the length of the line beneath sheet's title  
+    const line = fixture.nativeElement.querySelector('hr');
+    expect(line.style.width).toContain(96.46);
+  });
+
+  it('should select a color for a sheet', () => {
+    // a sheet with an id zero get the first color from the color palette
+    const line = fixture.nativeElement.querySelector('hr');
+    expect(line.style.backgroundColor).toBe(mockColorPalette[0]);
+  });
+
+  it('should use the default color if not enough colors in Colors const', () => {
+    comp.sheet = MockBudgetState.sheets[2]; // mockColors has just two items
+    fixture.detectChanges();
+    const line = fixture.nativeElement.querySelector('hr');
+    const lineStyles = getComputedStyle(line, 'background-color'); // use getComputedStyle to get styles set in css
+    expect(lineStyles.backgroundColor).toBe('rgb(21, 132, 103)');
   });
 });
