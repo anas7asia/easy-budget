@@ -1,8 +1,14 @@
 import { budgetSheetReducer } from './budget-sheet.reducers';
-import { addSheet, updateSheet, deleteSheet } from './budget-sheet.actions';
+import { addSheet, updateSheet, deleteSheet, loadSheets } from './budget-sheet.actions';
 import { MockBudgetState, MockBudgetSheet } from 'src/app/testing/mock-budget';
 
 describe('Budget Sheet Reducers', () => {
+  it('should load sheets', () => {
+    const initialState = MockBudgetState.sheets;
+    const result = budgetSheetReducer([], loadSheets({sheets: initialState}));
+    expect(result).toEqual(initialState);
+  });
+
   it('should add a new sheet', () => {
     const initialState = MockBudgetState.sheets;
     const result = budgetSheetReducer(initialState, addSheet({sheet: MockBudgetSheet }))

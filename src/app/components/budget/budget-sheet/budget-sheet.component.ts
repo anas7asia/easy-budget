@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { BudgetSheet, BudgetSheetItem } from '../../../interfaces/budget';
-import { BudgetProperties, Colors } from '../../../constants';
+import { BudgetProperties } from '../../../constants';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MonthlyYearlyValidator } from './monthly-yearly.validator';
 
@@ -23,7 +23,6 @@ export class BudgetSheetComponent {
     monthly: new FormControl(''),
     yearly: new FormControl(''),
   }, { validators: MonthlyYearlyValidator })
-  Colors = Colors
 
   calcSubtotal(property: string): number {
     return this.sheet.items.reduce((acc: number, item: BudgetSheetItem) => {

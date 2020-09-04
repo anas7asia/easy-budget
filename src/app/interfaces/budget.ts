@@ -13,7 +13,8 @@ export interface BudgetSheet {
   readonly id: number
   readonly categoryId: number
   title: string
-  items?: BudgetSheetItem[]
+  items: BudgetSheetItem[]
+  color?: string
 }
 
 export interface BudgetSheetItem {

@@ -36,7 +36,6 @@ describe('BudgetSheetComponent', () => {
     comp = fixture.componentInstance;
     comp.sheet = MockBudgetState.sheets[0];
     comp.totalYearlyIncome = 37320;
-    comp.Colors = mockColorPalette;
     fixture.detectChanges();
   });
 
@@ -222,12 +221,6 @@ describe('BudgetSheetComponent', () => {
     // check the length of the line beneath sheet's title  
     const line = fixture.nativeElement.querySelector('hr');
     expect(line.style.width).toContain(96.46);
-  });
-
-  it('should select a color for a sheet', () => {
-    // a sheet with an id zero get the first color from the color palette
-    const line = fixture.nativeElement.querySelector('hr');
-    expect(line.style.backgroundColor).toBe(mockColorPalette[0]);
   });
 
   it('should use the default color if not enough colors in Colors const', () => {

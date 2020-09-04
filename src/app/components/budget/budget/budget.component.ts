@@ -5,8 +5,9 @@ import { Store, select } from '@ngrx/store';
 import { selectIncome, selectExpenses, selectIncomeSheets, selectExpensesSheets, selectSheets, selectMonthlyIncome, selectYearlyIncome, selectMonthlyExpenses, selectYearlyExpenses } from '../../../reducers/budget/budget.selectors';
 import { addSheet, updateSheet, deleteSheet } from '../../../reducers/budget/budget-sheet.actions';
 import { Budget, BudgetSheet, BudgetCategory, BudgetSheetItem } from '../../../interfaces/budget';
-import { BudgetCategoryId } from '../../../constants';
+import { BudgetCategoryId, Colors } from '../../../constants';
 import { State } from 'src/app/reducers';
+import { BudgetService } from '../budget.service';
 
 @Component({
   selector: 'app-budget',
@@ -32,15 +33,24 @@ export class BudgetComponent implements OnInit {
 
   readonly BudgetCategoryId = BudgetCategoryId
  
-  constructor(private store: Store<State>) {}
+  constructor(
+    private store: Store<State>,
+    private budgetService: BudgetService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.budgetService.loadSheets();
+  }
 
   addNewSheet(title: string, categoryId: number) {
     this.newSheetId$
       .pipe(first()) // prevent an infinite loop
       .subscribe(id => {
-        this.store.dispatch(addSheet({ sheet: { title, categoryId, id, items: [] }}));
+        this.store.dispatch(addSheet({ sheet: { 
+          title, 
+          categoryId, 
+          id, 
+          items: [], 
+          color: Colors[id] }}));
     })
   }
 
