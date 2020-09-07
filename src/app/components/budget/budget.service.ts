@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BudgetSheet } from 'src/app/interfaces/budget';
-import { BudgetCategoryId, Colors } from 'src/app/constants';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/reducers';
-import { loadSheets } from 'src/app/reducers/budget/budget-sheet.actions';
+import { loadSheets, addSheet, updateSheet, deleteSheet } from 'src/app/reducers/budget/budget-sheet.actions';
+import { BudgetSheet, BudgetSheetItem } from 'src/app/interfaces/budget';
+import { BudgetCategoryId, Colors, BudgetProperties } from 'src/app/constants';
 
-const initialSheets: BudgetSheet[] = [
+const initialSheets: Pick<BudgetSheet, 'id'|'categoryId'|'title'|'items'>[] = [
   {
     title: 'Salary',
     id: 0,
@@ -39,19 +39,41 @@ const initialSheets: BudgetSheet[] = [
   providedIn: 'root'
 })
 export class BudgetService {
+  
+  sheets = initialSheets // raw data to be transformed to BudgetSheet[]
 
   constructor(private store: Store<State>,) { }
 
   loadSheets() {
-    /* 
-    1. Load sheets from anywhere you want
-    2. Then parse them to assign color
-    3. Then add them to the store 
-    */
-    const sheets = initialSheets.map(sheet => {
-      return Object.assign(sheet, { color: Colors[sheet.id] })
-    });
-
+    const sheets: BudgetSheet[] = this.sheets.map(sheet => this.parseRawSheetData(sheet))
     this.store.dispatch(loadSheets({sheets}))
+  }
+
+  addSheet(rawSheet: Pick<BudgetSheet, 'id'|'title'|'categoryId'>) {
+    const sheet: BudgetSheet = this.parseRawSheetData({
+      ...rawSheet,
+      items: []
+    })
+    this.store.dispatch(addSheet({ sheet }));
+  }
+
+  updateSheet(sheet: BudgetSheet) {
+    this.store.dispatch(updateSheet({sheet}))
+  }
+
+  deleteSheet(sheet: BudgetSheet) {
+    this.store.dispatch(deleteSheet({sheet}))
+  }
+
+  parseRawSheetData(sheet: Pick<BudgetSheet, 'id'|'title'|'categoryId'|'items'>): BudgetSheet {
+    return Object.assign({}, sheet, { 
+      color: Colors[sheet.id],
+      yearlySubtotal: this.calcSubtotal(sheet.items, BudgetProperties.yearly),
+      monthlySubtotal: this.calcSubtotal(sheet.items, BudgetProperties.monthly),
+    })
+  }
+
+  private calcSubtotal(items: BudgetSheetItem[], period: string): number {
+    return items.reduce((subtotal, curr) => subtotal + curr[period], 0)
   }
 }

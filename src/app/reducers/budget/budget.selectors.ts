@@ -27,11 +27,8 @@ export const selectExpensesSheets = createSelector(
 /* Third level selectors: total income/expenses */
 
 const calcTotalAmount = (sheets: BudgetSheet[], property: string): number => {
-  // sum of all items in all income sheets
   return sheets.reduce((total: number, sheet: BudgetSheet) => {
-    return total + sheet.items.reduce((subtotal: number, item: BudgetSheetItem) => {
-      return subtotal + item[property]
-    }, 0)
+    return total + sheet[`${property}Subtotal`]
   }, 0)
 }
 

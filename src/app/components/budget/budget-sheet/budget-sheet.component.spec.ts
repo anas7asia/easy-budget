@@ -12,10 +12,6 @@ const mockFormValue = {
   yearly: 2400
 }
 
-// browser transforms hex colors to rgb, rgb is used for testing only
-// see more on this issue: https://stackoverflow.com/questions/57990961/how-to-test-style-background-color-attribute
-const mockColorPalette = ['rgb(0, 0, 0)', 'rgb(255, 255, 255)'];
-
 describe('BudgetSheetComponent', () => {
   let comp: BudgetSheetComponent;
   let fixture: ComponentFixture<BudgetSheetComponent>;
@@ -121,7 +117,7 @@ describe('BudgetSheetComponent', () => {
   });
 
   // new id is last item id plus one
-  it('new item should have a proper id', () => {
+  it('should assign a proper id to a new item', () => {
     let sheet: BudgetSheet;
     comp.sheetUpdated.subscribe(e => sheet = e);
     comp.newItemForm.setValue(mockFormValue);
@@ -130,12 +126,14 @@ describe('BudgetSheetComponent', () => {
     expect(sheet.items[sheet.items.length-1].id).toBe(2);
   });
 
-  it('first item should have an id of zero', () => {
+  it('should assign an id of zero to the first item', () => {
     comp.sheet = {
       title: 'Whatever',
       id: 3,
       categoryId: 0,
-      items: []
+      items: [],
+      yearlySubtotal: 0,
+      monthlySubtotal: 0
     }
     let sheet: BudgetSheet;
     comp.sheetUpdated.subscribe(e => sheet = e);
@@ -217,17 +215,18 @@ describe('BudgetSheetComponent', () => {
    expect(percentage).toBe('96.46%');
   });
 
+  it('should not fail to calculate percentage if total amount is zero', () => {
+    comp.totalYearlyIncome = 0;
+    comp.sheet = Object.assign({}, comp.sheet, { items: []});
+    fixture.detectChanges();
+    const percentage = fixture.nativeElement.querySelectorAll('tfoot td')[3].textContent;
+    expect(percentage).toBe('0%');
+  });
+
   it('should display subtotal percentage of income', () => {
     // check the length of the line beneath sheet's title  
     const line = fixture.nativeElement.querySelector('hr');
     expect(line.style.width).toContain(96.46);
   });
 
-  it('should use the default color if not enough colors in Colors const', () => {
-    comp.sheet = MockBudgetState.sheets[2]; // mockColors has just two items
-    fixture.detectChanges();
-    const line = fixture.nativeElement.querySelector('hr');
-    const lineStyles = getComputedStyle(line, 'background-color'); // use getComputedStyle to get styles set in css
-    expect(lineStyles.backgroundColor).toBe('rgb(21, 132, 103)');
-  });
 });

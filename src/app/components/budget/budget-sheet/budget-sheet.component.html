@@ -7,7 +7,7 @@
   </div>
 
   <hr 
-    [style.width]="calcPercentage(calcSubtotal(BudgetProperties.yearly)) + '%'"
+    [style.width]="calcPercentage(sheet.yearlySubtotal) + '%'"
     [style.backgroundColor]="sheet.color">
 
   <table>
@@ -60,9 +60,9 @@
     <tfoot>
       <tr>
         <td>Subtotal</td>
-        <td id="js-monthly-subtotal">{{ calcSubtotal(BudgetProperties.monthly) }}</td>
-        <td id="js-yearly-subtotal">{{ calcSubtotal(BudgetProperties.yearly) }}</td>
-        <td colspan="2">{{ calcPercentage(calcSubtotal(BudgetProperties.yearly)) }}%</td>
+        <td id="js-monthly-subtotal">{{ sheet.monthlySubtotal }}</td>
+        <td id="js-yearly-subtotal">{{ sheet.yearlySubtotal }}</td>
+        <td colspan="2">{{ calcPercentage(sheet.yearlySubtotal) }}%</td>
       </tr>
     </tfoot>
   </table>

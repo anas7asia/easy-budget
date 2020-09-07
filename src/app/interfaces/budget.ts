@@ -15,6 +15,8 @@ export interface BudgetSheet {
   title: string
   items: BudgetSheetItem[]
   color?: string
+  yearlySubtotal: number
+  monthlySubtotal: number
 }
 
 export interface BudgetSheetItem {

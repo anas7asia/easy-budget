@@ -24,18 +24,16 @@ export class BudgetSheetComponent {
     yearly: new FormControl(''),
   }, { validators: MonthlyYearlyValidator })
 
-  calcSubtotal(property: string): number {
-    return this.sheet.items.reduce((acc: number, item: BudgetSheetItem) => {
-      return acc + item[property]
-    }, 0)
-  }
 
   showAddItemForm() {
     this.isAddingItem = !this.isAddingItem
   }
 
-  calcPercentage(num: number): number {
-    return this.roundNum(num * 100 / this.totalYearlyIncome)
+  calcPercentage(num: number, total: number = this.totalYearlyIncome): number {
+    const result = total !== 0 ? 
+      num * 100 / total : // can't divide by zero
+      0
+    return this.roundNum(result)
   }
 
   /** 
@@ -58,6 +56,7 @@ export class BudgetSheetComponent {
       }
       const updatedSheet = Object.assign({}, this.sheet)
       updatedSheet.items = [...updatedSheet.items, newItem]
+      // TODO: update sheet total
       this.sheetUpdated.emit(updatedSheet)
       /* 
       There's no need to change isAddingItem value to false explicitely and reset the form,
@@ -74,6 +73,7 @@ export class BudgetSheetComponent {
       this.sheet,
       { items: this.sheet.items.filter(i => i.id !== itemId) })
 
+    // TODO: update subtotal
     this.sheetUpdated.emit(updatedSheet)
   }
 
