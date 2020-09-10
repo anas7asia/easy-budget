@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "buildForGithub": "ng build --prod --baseHref=https://anas7asia.github.io/easy-budget/ --output-path=docs/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

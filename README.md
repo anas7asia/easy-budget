@@ -8,6 +8,14 @@ Visit demo page [https://anas7asia.github.io/easy-budget/](https://anas7asia.git
 
 Or just download this project and run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
+## Roadmap
+
+This project is still under development. Following features are yet to come:
++ Store data in LocalStorage
++ Edit items in a category table
++ Authenticate users with Firebase
++ Store data in a database
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
