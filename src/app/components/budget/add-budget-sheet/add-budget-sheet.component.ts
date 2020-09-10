@@ -1,13 +1,15 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-budget-sheet',
   templateUrl: './add-budget-sheet.component.html',
-  styleUrls: ['./add-budget-sheet.component.scss']
+  styleUrls: ['./add-budget-sheet.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddBudgetSheetComponent {
 
+  @Input() btnText: string
   @Output() sheetAdded = new EventEmitter<string>()
   addSheetControl = new FormControl('', Validators.required)
   

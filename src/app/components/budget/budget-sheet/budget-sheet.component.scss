@@ -29,6 +29,11 @@ hr {
 /* 
 Table styles
 */
+
+.table-wrapper {
+  overflow-x: auto; // responsive table should be scrollable
+}
+
 table {
   table-layout: fixed;
   width: 100%;
@@ -122,7 +127,7 @@ when a sheet container is hovered over, all the actions become visible
   border-radius: 4px;
   transform: translateY(-50%);
   transition: all 150ms ease-in;
-
+  
   &:hover {
     background-color: $gray-primary;
   }
@@ -137,7 +142,7 @@ when a sheet container is hovered over, all the actions become visible
   color: $gray-primary;
   font-size: .85rem;
   transition: all 150ms ease-in;
-
+  
   &:hover {
     color: $gray-dark;
   }

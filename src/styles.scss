@@ -8,7 +8,15 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 14px;
+
+  @include tablet {
+    font-size: 15px;
+  }
+
+  @include desktop {
+    font-size: 16px;
+  }
 }
 
 body {

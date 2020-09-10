@@ -10,61 +10,63 @@
     [style.width]="calcPercentage(sheet.yearlySubtotal, totalYearlyIncome) + '%'"
     [style.backgroundColor]="sheet.color">
 
-  <table>
-
-    <thead>
-      <tr>
-        <th>Label</th>
-        <th>Monthly</th>
-        <th>Yearly</th>
-        <th>%</th>
-        <th></th>
-      </tr>
-    </thead>
-    
-    <tbody>
-      <tr *ngFor="let item of sheet.items">
-        <td>{{ item.label }}</td>
-        <td>{{ item.monthly }}</td>
-        <td>{{ item.yearly }}</td>
-        <td>{{ calcPercentage(item.yearly, totalYearlyIncome) }}%</td>
-        <td>
-          <button class="btn-delete-item" title="Delete this item" (click)="deleteItem(item.id)">
-            <span class="fas fa-trash"></span>
-          </button>
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="5" class="add-row-container">
-          <button class="btn-add-row" id="js-add-item" (click)="showAddItemForm()">
-            <ng-container *ngIf="!isAddingItem">+</ng-container>
-            <ng-container *ngIf="isAddingItem">-</ng-container>
-          </button>
-
-          <ng-container *ngIf="isAddingItem">
-            <form class="form-add-item" [formGroup]="newItemForm" (submit)="addNewItem()">
-                <input formControlName="label" type="text" placeholder="Label">
-                <input formControlName="monthly" type="number" placeholder="10">
-                <input formControlName="yearly" type="number" placeholder="120">
-                <button 
-                  type="submit" 
-                  [disabled]="!newItemForm.valid"
-                  [style.backgroundColor]="sheet.color">Add</button>
-            </form>
-          </ng-container>
-        </td>
-      </tr>
-    </tbody>    
-
-    <tfoot>
-      <tr>
-        <td>Subtotal</td>
-        <td id="js-monthly-subtotal">{{ sheet.monthlySubtotal }}</td>
-        <td id="js-yearly-subtotal">{{ sheet.yearlySubtotal }}</td>
-        <td colspan="2">{{ calcPercentage(sheet.yearlySubtotal, totalYearlyIncome) }}%</td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="table-wrapper">
+    <table>
+  
+      <thead>
+        <tr>
+          <th>Label</th>
+          <th>Monthly</th>
+          <th>Yearly</th>
+          <th>%</th>
+          <th></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let item of sheet.items">
+          <td>{{ item.label }}</td>
+          <td>{{ item.monthly }}</td>
+          <td>{{ item.yearly }}</td>
+          <td>{{ calcPercentage(item.yearly, totalYearlyIncome) }}%</td>
+          <td>
+            <button class="btn-delete-item" title="Delete this item" (click)="deleteItem(item.id)">
+              <span class="fas fa-trash"></span>
+            </button>
+          </td>
+        </tr>
+  
+        <tr>
+          <td colspan="5" class="add-row-container">
+            <button class="btn-add-row" id="js-add-item" (click)="showAddItemForm()">
+              <ng-container *ngIf="!isAddingItem">+</ng-container>
+              <ng-container *ngIf="isAddingItem">-</ng-container>
+            </button>
+  
+            <ng-container *ngIf="isAddingItem">
+              <form class="form-add-item" [formGroup]="newItemForm" (submit)="addNewItem()">
+                  <input formControlName="label" type="text" placeholder="Label">
+                  <input formControlName="monthly" type="number" placeholder="10">
+                  <input formControlName="yearly" type="number" placeholder="120">
+                  <button 
+                    type="submit" 
+                    [disabled]="!newItemForm.valid"
+                    [style.backgroundColor]="sheet.color">Add</button>
+              </form>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>    
+  
+      <tfoot>
+        <tr>
+          <td>Subtotal</td>
+          <td id="js-monthly-subtotal">{{ sheet.monthlySubtotal }}</td>
+          <td id="js-yearly-subtotal">{{ sheet.yearlySubtotal }}</td>
+          <td colspan="2">{{ calcPercentage(sheet.yearlySubtotal, totalYearlyIncome) }}%</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
   
 </section>

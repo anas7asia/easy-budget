@@ -33,7 +33,9 @@
         (sheetDeleted)="deleteSheet($event)"></app-budget-sheet>
     </ng-container>
   
-    <app-add-budget-sheet (sheetAdded)="addNewSheet($event, BudgetCategoryId.income)"></app-add-budget-sheet>
+    <app-add-budget-sheet 
+      btnText="New income category"
+      (sheetAdded)="addNewSheet($event, BudgetCategoryId.income)"></app-add-budget-sheet>
   </section>
   
   <section class="category" id="js-expenses">
@@ -47,7 +49,9 @@
         (sheetDeleted)="deleteSheet($event)"></app-budget-sheet>
     </ng-container>
   
-    <app-add-budget-sheet (sheetAdded)="addNewSheet($event, BudgetCategoryId.expenses)"></app-add-budget-sheet>
+    <app-add-budget-sheet 
+      btnText="New expenses category"
+      (sheetAdded)="addNewSheet($event, BudgetCategoryId.expenses)"></app-add-budget-sheet>
   </section>
 
 </div>

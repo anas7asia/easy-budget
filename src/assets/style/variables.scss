@@ -13,3 +13,36 @@ $gray-primary: #dee2e6;
 $gray-dark: #8d93ab;
 
 $first-column-width: 35%;
+
+
+// // BREAKPOINTS
+// $mobile: '768px';
+// $tablet: '769px';
+// $desktop: '1024px';
+$tablet: 769px;
+$desktop: 960px;
+
+/* RESPONSIVE */
+@mixin mobile() {
+	@media screen and (max-width: $tablet - 1px) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+	@media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+	@media screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin cursor() {
+  @media screen and (hover: hover) {
+    @content
+  }
+}
