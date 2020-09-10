@@ -49,7 +49,6 @@ export class BudgetOverviewComponent extends OverviewComponent implements OnChan
           this.colors.expenses
         )
       ]
-      console.log(this.chartCircles)
     }
   }
 

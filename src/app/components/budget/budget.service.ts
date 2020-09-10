@@ -4,6 +4,7 @@ import { State } from 'src/app/reducers';
 import { loadSheets, addSheet, updateSheet, deleteSheet } from 'src/app/reducers/budget/budget-sheet.actions';
 import { BudgetSheet, BudgetSheetItem } from 'src/app/interfaces/budget';
 import { BudgetCategoryId, Colors, BudgetProperties } from 'src/app/constants';
+import { calcSubtotal } from 'src/app/utils';
 
 const initialSheets: Pick<BudgetSheet, 'id'|'categoryId'|'title'|'items'>[] = [
   {
@@ -87,12 +88,8 @@ export class BudgetService {
   parseRawSheetData(sheet: Pick<BudgetSheet, 'id'|'title'|'categoryId'|'items'>): BudgetSheet {
     return Object.assign({}, sheet, { 
       color: Colors[sheet.id],
-      yearlySubtotal: this.calcSubtotal(sheet.items, BudgetProperties.yearly),
-      monthlySubtotal: this.calcSubtotal(sheet.items, BudgetProperties.monthly),
+      yearlySubtotal: calcSubtotal(sheet.items, BudgetProperties.yearly),
+      monthlySubtotal: calcSubtotal(sheet.items, BudgetProperties.monthly),
     })
-  }
-
-  private calcSubtotal(items: BudgetSheetItem[], period: string): number {
-    return items.reduce((subtotal, curr) => subtotal + curr[period], 0)
   }
 }

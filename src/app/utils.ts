@@ -1,3 +1,5 @@
+import { BudgetSheetItem } from './interfaces/budget'
+
 export const calcPercentage = (num: number, total: number): number => {
   const result = total !== 0 ? 
     num * 100 / total : // can't divide by zero
@@ -18,4 +20,8 @@ export const roundNum = (num: number, decimalPlaces: number = 2): number => {
     countDecimalPlaces(num) > decimalPlaces ?
       parseFloat(num.toFixed(decimalPlaces)) :
       num
+}
+
+export const calcSubtotal = (items: BudgetSheetItem[], period: string): number => {
+  return items.reduce((subtotal, curr) => subtotal + curr[period], 0)
 }

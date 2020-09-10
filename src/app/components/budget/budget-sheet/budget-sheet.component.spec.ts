@@ -12,6 +12,15 @@ const mockFormValue = {
   yearly: 2400
 }
 
+const emptySheet = {
+  title: 'Whatever',
+  id: 3,
+  categoryId: 0,
+  items: [],
+  yearlySubtotal: 0,
+  monthlySubtotal: 0
+}
+
 describe('BudgetSheetComponent', () => {
   let comp: BudgetSheetComponent;
   let fixture: ComponentFixture<BudgetSheetComponent>;
@@ -127,20 +136,24 @@ describe('BudgetSheetComponent', () => {
   });
 
   it('should assign an id of zero to the first item', () => {
-    comp.sheet = {
-      title: 'Whatever',
-      id: 3,
-      categoryId: 0,
-      items: [],
-      yearlySubtotal: 0,
-      monthlySubtotal: 0
-    }
+    comp.sheet = emptySheet;
     let sheet: BudgetSheet;
     comp.sheetUpdated.subscribe(e => sheet = e);
     comp.newItemForm.setValue(mockFormValue);
 
     comp.addNewItem();
     expect(sheet.items[sheet.items.length-1].id).toBe(0);
+  });
+
+  it('should update subtotal value if an item has been added', () => {
+    comp.sheet = emptySheet;
+    let sheet: BudgetSheet;
+    comp.sheetUpdated.subscribe(e => sheet = e);
+    comp.newItemForm.setValue(mockFormValue);
+
+    comp.addNewItem();
+    expect(sheet.monthlySubtotal).toBe(200);
+    expect(sheet.yearlySubtotal).toBe(2400);
   });
 
   // form is valid when label/monthly/yearly are present or only label/monthly or label/yearly
@@ -189,6 +202,19 @@ describe('BudgetSheetComponent', () => {
     comp.deleteItem(MockBudgetSheet.items[MockBudgetSheet.items.length - 1].id);
 
     expect(sheet.items.length).toBe(MockBudgetSheet.items.length - 1);
+  });
+
+  it('should update subtotal when an item is deleted', () => {
+    comp.sheet = MockBudgetSheet;
+    fixture.detectChanges();
+
+    let sheet: BudgetSheet;
+    comp.sheetUpdated.subscribe(e => sheet = e);
+
+    comp.deleteItem(MockBudgetSheet.items[MockBudgetSheet.items.length - 1].id);
+
+    expect(sheet.monthlySubtotal).toBe(200);
+    expect(sheet.yearlySubtotal).toBe(2400);
   });
 
   it('should delete the sheet', () => {

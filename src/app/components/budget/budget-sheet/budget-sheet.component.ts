@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BudgetSheet, BudgetSheetItem } from 'src/app/interfaces/budget';
 import { BudgetProperties } from 'src/app/constants';
-import { calcPercentage, roundNum } from 'src/app/utils';
+import { calcPercentage, roundNum, calcSubtotal } from 'src/app/utils';
 import { MonthlyYearlyValidator } from './monthly-yearly.validator';
 
 @Component({
@@ -49,9 +49,14 @@ export class BudgetSheetComponent {
         monthly: this.newItemForm.value.monthly || calcMonthly(this.newItemForm.value.yearly),
         yearly: this.newItemForm.value.yearly || calcYearly(this.newItemForm.value.monthly)
       }
-      const updatedSheet = Object.assign({}, this.sheet)
-      updatedSheet.items = [...updatedSheet.items, newItem]
-      // TODO: update sheet total
+
+      const updatedItems = [...this.sheet.items, newItem]
+
+      const updatedSheet = Object.assign({}, this.sheet, {
+        items: updatedItems,
+        ...this.updateSubtotal(updatedItems)
+      })
+
       this.sheetUpdated.emit(updatedSheet)
       /* 
       There's no need to change isAddingItem value to false explicitely and reset the form,
@@ -62,16 +67,24 @@ export class BudgetSheetComponent {
   }
 
   deleteItem(itemId: number) {
-    const updatedSheet = Object.assign(
-      {},
-      this.sheet,
-      { items: this.sheet.items.filter(i => i.id !== itemId) })
+    const updatedItems = this.sheet.items.filter(i => i.id !== itemId)
+    
+    const updatedSheet = Object.assign({}, this.sheet, { 
+      items: updatedItems,
+      ...this.updateSubtotal(updatedItems)
+    })
 
-    // TODO: update subtotal
     this.sheetUpdated.emit(updatedSheet)
   }
 
   deleteSheet() {
     this.sheetDeleted.emit(this.sheet);
+  }
+
+  private updateSubtotal(items: BudgetSheetItem[]): Pick<BudgetSheet, 'monthlySubtotal'|'yearlySubtotal'> {
+    return {
+      monthlySubtotal: calcSubtotal(items, BudgetProperties.monthly),
+      yearlySubtotal: calcSubtotal(items, BudgetProperties.yearly)
+    }
   }
 }
