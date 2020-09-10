@@ -6,12 +6,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BudgetComponent } from './budget/budget.component';
 import { AddBudgetSheetComponent } from './add-budget-sheet/add-budget-sheet.component';
 import { BudgetSheetComponent } from './budget-sheet/budget-sheet.component';
+import { CategoryOverviewComponent } from './category-overview/category-overview.component';
+import { OverviewComponent } from './overview/overview.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
     BudgetComponent,
     BudgetSheetComponent,
-    AddBudgetSheetComponent
+    AddBudgetSheetComponent,
+    CategoryOverviewComponent,
+    ChartComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,

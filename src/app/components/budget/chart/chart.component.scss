@@ -1,0 +1,51 @@
+@import 'variables.scss';
+
+$circle-stroke-width: 8px;
+$circle-width: 100px;
+
+.chart-container {
+  margin: 1.5rem 0;
+}
+
+.chart {
+  max-width: 200px;
+}
+
+.chart__wrapper {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; // so chart will be square
+  vertical-align: middle;
+}
+
+.chart__donut {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.chart__foreground {
+  fill: none;
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg); // svg circle starts at 3pm, with translate it starts at noon
+}
+
+.chart__list {
+  margin-top: 1.5rem;
+  list-style-type: none;
+}
+
+.chart__list__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
+.chart__list__disc {
+  margin-right: .75rem;
+  width: .5rem;
+  height: .5rem;
+  border-radius: 100%;
+}

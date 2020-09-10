@@ -3,7 +3,6 @@
 .wrapper {
   margin: 0 auto;
   max-width: 90%;
-
 }
 
 .page-title {
@@ -18,4 +17,9 @@
   margin-bottom: 1rem;
   font-family: $font-pretty;
   font-size: 1.75rem;
+}
+
+.budget-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }

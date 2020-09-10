@@ -1,7 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { BudgetSheet, BudgetSheetItem } from '../../../interfaces/budget';
-import { BudgetProperties } from '../../../constants';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BudgetSheet, BudgetSheetItem } from 'src/app/interfaces/budget';
+import { BudgetProperties } from 'src/app/constants';
+import { calcPercentage, roundNum } from 'src/app/utils';
 import { MonthlyYearlyValidator } from './monthly-yearly.validator';
 
 @Component({
@@ -23,17 +24,11 @@ export class BudgetSheetComponent {
     monthly: new FormControl(''),
     yearly: new FormControl(''),
   }, { validators: MonthlyYearlyValidator })
+  calcPercentage = calcPercentage  
 
 
   showAddItemForm() {
     this.isAddingItem = !this.isAddingItem
-  }
-
-  calcPercentage(num: number, total: number = this.totalYearlyIncome): number {
-    const result = total !== 0 ? 
-      num * 100 / total : // can't divide by zero
-      0
-    return this.roundNum(result)
   }
 
   /** 
@@ -42,8 +37,8 @@ export class BudgetSheetComponent {
   Sent the newly created item to the higher places authorities
   */
   addNewItem() {
-    const calcYearly = (m: number): number => this.roundNum(m * 12)
-    const calcMonthly = (y: number): number => this.roundNum(y / 12)
+    const calcYearly = (m: number): number => roundNum(m * 12)
+    const calcMonthly = (y: number): number => roundNum(y / 12)
 
     if (this.newItemForm.valid) {
       const newItem: BudgetSheetItem = { 
@@ -63,7 +58,6 @@ export class BudgetSheetComponent {
       because current sheet gets updated in the store and this component is rerendered.
       Thus it is reinitialised (for exemple, ngOnInit is called) and its values are set to defult.
       */
-
     }
   }
 
@@ -79,20 +73,5 @@ export class BudgetSheetComponent {
 
   deleteSheet() {
     this.sheetDeleted.emit(this.sheet);
-  }
-
-  /** 
-   * @desc let an integer be as it is or round a float number to maximum two decimal places of precision: 
-   * 3.33333333 ==> 3.33
-   * 2.25 ==> 2.25 
-   * */
-  private roundNum(num: number, decimalPlaces: number = 2): number {
-    const countDecimalPlaces = (floatNum: number) => `${floatNum}`.split('.')[1].length
-
-    return Number.isInteger(num) ?
-      num :
-      countDecimalPlaces(num) > decimalPlaces ?
-        parseFloat(num.toFixed(decimalPlaces)) :
-        num
   }
 }

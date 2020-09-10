@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { selectIncome, selectExpenses, selectIncomeSheets, selectExpensesSheets, selectSheets, selectMonthlyIncome, selectYearlyIncome, selectMonthlyExpenses, selectYearlyExpenses } from '../../../reducers/budget/budget.selectors';
-import { Budget, BudgetSheet, BudgetCategory, BudgetSheetItem } from '../../../interfaces/budget';
-import { BudgetCategoryId, Colors } from '../../../constants';
+import { selectIncomeSheets, selectExpensesSheets, selectSheets, selectMonthlyIncome, selectYearlyIncome, selectMonthlyExpenses, selectYearlyExpenses } from 'src/app/reducers/budget/budget.selectors';
+import { BudgetSheet } from 'src/app/interfaces/budget';
+import { BudgetCategoryId } from 'src/app/constants';
 import { State } from 'src/app/reducers';
 import { BudgetService } from '../budget.service';
 
@@ -29,9 +29,9 @@ export class BudgetComponent implements OnInit {
     private store: Store<State>,
     private budgetService: BudgetService) {}
     
-    ngOnInit() {
-      this.budgetService.loadSheets();
-    }
+  ngOnInit() {
+    this.budgetService.loadSheets();
+  }
     
   addNewSheet(title: string, categoryId: number) {
     this.allSheets$

@@ -21,7 +21,8 @@ const initialSheets: Pick<BudgetSheet, 'id'|'categoryId'|'title'|'items'>[] = [
     categoryId: BudgetCategoryId.income, 
     items: [
       { id: 0, label: 'Tesla', yearly: 1200, monthly: 100 },
-      { id: 1, label: 'Amazon', yearly: 120, monthly: 10 }
+      { id: 1, label: 'BeyondMeat', yearly: 120, monthly: 10 },
+      { id: 1, label: 'Apple', yearly: 3600, monthly: 300 }
     ] 
   },
   { 
@@ -31,6 +32,24 @@ const initialSheets: Pick<BudgetSheet, 'id'|'categoryId'|'title'|'items'>[] = [
     items: [
       { id: 0, label: 'Rent', yearly: 7200, monthly: 600 },
       { id: 1, label: 'Insurance', yearly: 360, monthly: 30 }
+    ]
+  },
+  { 
+    title: 'Transport', 
+    id: 3, 
+    categoryId: BudgetCategoryId.expenses,
+    items: [
+      { id: 0, label: 'Car', yearly: 3600, monthly: 300 },
+      { id: 1, label: 'Gaz', yearly: 720, monthly: 60 }
+    ]
+  },
+  { 
+    title: 'Food', 
+    id: 4, 
+    categoryId: BudgetCategoryId.expenses,
+    items: [
+      { id: 0, label: 'Groceries', yearly: 4800, monthly: 400 },
+      { id: 1, label: 'Eating Out', yearly: 1440, monthly: 120 }
     ]
   }
 ];

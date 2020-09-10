@@ -1,12 +1,24 @@
 <div class="wrapper">
   <h1 class="page-title">Easy budget</h1>
+
+  <section class="category budget-charts">
+    <app-budget-overview 
+      [sheets]="incomeSheets$ | async"
+      [total]="yearlyIncome$ | async"
+      [yearly]="yearlyIncome$ | async"
+      [monthly]="monthlyIncome$ | async"
+      prefix="+"></app-budget-overview>
+    <app-budget-overview 
+      [sheets]="expensesSheets$ | async"
+      [total]="yearlyExpenses$ | async"
+      [yearly]="yearlyExpenses$ | async"
+      [monthly]="monthlyExpenses$ | async"
+      prefix="-"></app-budget-overview>
+  </section>
   
-  <section  class="category" id="js-income">
+  <section class="category" id="js-income">
     <h2 class="category-title">Money In</h2>
-  
-    <p>Total monthly income: {{ monthlyIncome$ | async }}</p>
-    <p>Total yearly income: {{ yearlyIncome$ | async }}</p>
-  
+
     <ng-container *ngFor="let s of incomeSheets$ | async">
       <app-budget-sheet 
         [sheet]="s"
@@ -21,9 +33,6 @@
   <section class="category" id="js-expenses">
     <h2 class="category-title">Money Out</h2>
   
-    <p>Total monthly expenses: {{ monthlyExpenses$ | async }}</p>
-    <p>Total yearly expenses: {{ yearlyExpenses$ | async }}</p>
-  
     <ng-container *ngFor="let s of expensesSheets$ | async">
       <app-budget-sheet 
         [sheet]="s"
@@ -34,8 +43,5 @@
   
     <app-add-budget-sheet (sheetAdded)="addNewSheet($event, BudgetCategoryId.expenses)"></app-add-budget-sheet>
   </section>
-  
-  <section>
-    <h2>Net Income</h2>
-  </section>
+
 </div>

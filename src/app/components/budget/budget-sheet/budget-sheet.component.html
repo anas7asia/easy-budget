@@ -7,7 +7,7 @@
   </div>
 
   <hr 
-    [style.width]="calcPercentage(sheet.yearlySubtotal) + '%'"
+    [style.width]="calcPercentage(sheet.yearlySubtotal, totalYearlyIncome) + '%'"
     [style.backgroundColor]="sheet.color">
 
   <table>
@@ -27,7 +27,7 @@
         <td>{{ item.label }}</td>
         <td>{{ item.monthly }}</td>
         <td>{{ item.yearly }}</td>
-        <td>{{ calcPercentage(item.yearly) }}%</td>
+        <td>{{ calcPercentage(item.yearly, totalYearlyIncome) }}%</td>
         <td>
           <button class="btn-delete-item" title="Delete this item" (click)="deleteItem(item.id)">
             <span class="fas fa-trash"></span>
@@ -62,7 +62,7 @@
         <td>Subtotal</td>
         <td id="js-monthly-subtotal">{{ sheet.monthlySubtotal }}</td>
         <td id="js-yearly-subtotal">{{ sheet.yearlySubtotal }}</td>
-        <td colspan="2">{{ calcPercentage(sheet.yearlySubtotal) }}%</td>
+        <td colspan="2">{{ calcPercentage(sheet.yearlySubtotal, totalYearlyIncome) }}%</td>
       </tr>
     </tfoot>
   </table>

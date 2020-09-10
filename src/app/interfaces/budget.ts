@@ -29,3 +29,16 @@ export interface BudgetSheetItem {
 export interface BudgetProfit {
   value: number
 }
+
+export interface BudgetChartCircle {
+  radius: number
+  strokeWidth: number
+  strokeDasharray: string 
+  strokeDashoffset: string
+  color: string
+}
+
+export interface BudgetChartList {
+  title: string
+  color: string
+}
