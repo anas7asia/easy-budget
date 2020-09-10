@@ -10,6 +10,7 @@ import { AddBudgetSheetComponent } from '../add-budget-sheet/add-budget-sheet.co
 import { CategoryOverviewComponent } from '../category-overview/category-overview.component';
 import { BudgetService } from '../budget.service';
 import { of } from 'rxjs';
+import { BudgetOverviewComponent } from '../budget-overview/budget-overview.component';
 
 describe('BudgetComponent', () => {
   let comp: BudgetComponent;
@@ -26,6 +27,7 @@ describe('BudgetComponent', () => {
         MockComponent(AddBudgetSheetComponent),
         MockComponent(BudgetSheetComponent),
         MockComponent(CategoryOverviewComponent),
+        MockComponent(BudgetOverviewComponent),
       ],
       providers: [
         provideMockStore({

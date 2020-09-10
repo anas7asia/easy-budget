@@ -25,3 +25,8 @@ export const Colors = [
   '#3c2c3e', // dusty violet
   '#84a9ac', // gray
 ]
+
+export const BudgetOverviewColors = {
+  income: '#36b5b0',
+  expenses: '#f5c181'
+}

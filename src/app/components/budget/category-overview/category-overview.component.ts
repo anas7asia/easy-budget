@@ -4,7 +4,7 @@ import { calcPercentage } from 'src/app/utils';
 import { OverviewComponent } from '../overview/overview.component';
 
 @Component({
-  selector: 'app-budget-overview',
+  selector: 'app-category-overview',
   templateUrl: './category-overview.component.html',
   styleUrls: ['./category-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

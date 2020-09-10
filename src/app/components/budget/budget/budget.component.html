@@ -2,18 +2,24 @@
   <h1 class="page-title">Easy budget</h1>
 
   <section class="category budget-charts">
-    <app-budget-overview 
+    <app-category-overview 
       [sheets]="incomeSheets$ | async"
       [total]="yearlyIncome$ | async"
       [yearly]="yearlyIncome$ | async"
       [monthly]="monthlyIncome$ | async"
-      prefix="+"></app-budget-overview>
-    <app-budget-overview 
+      prefix="+"></app-category-overview>
+    <app-category-overview 
       [sheets]="expensesSheets$ | async"
       [total]="yearlyExpenses$ | async"
       [yearly]="yearlyExpenses$ | async"
       [monthly]="monthlyExpenses$ | async"
-      prefix="-"></app-budget-overview>
+      prefix="-"></app-category-overview>
+
+    <app-budget-overview
+      [yearlyIncome]="yearlyIncome$ | async"
+      [monthlyIncome]="monthlyIncome$ | async"
+      [yearlyExpenses]="yearlyExpenses$ | async"
+      [monthlyExpenses]="monthlyExpenses$ | async"></app-budget-overview>
   </section>
   
   <section class="category" id="js-income">

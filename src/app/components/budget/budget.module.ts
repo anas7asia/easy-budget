@@ -9,6 +9,7 @@ import { BudgetSheetComponent } from './budget-sheet/budget-sheet.component';
 import { CategoryOverviewComponent } from './category-overview/category-overview.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ChartComponent } from './chart/chart.component';
+import { BudgetOverviewComponent } from './budget-overview/budget-overview.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ChartComponent } from './chart/chart.component';
     AddBudgetSheetComponent,
     CategoryOverviewComponent,
     ChartComponent,
-    OverviewComponent
+    OverviewComponent,
+    BudgetOverviewComponent
   ],
   imports: [
     CommonModule,

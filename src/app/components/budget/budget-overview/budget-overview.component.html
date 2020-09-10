@@ -1,0 +1,6 @@
+<app-chart 
+  [circles]="chartCircles" 
+  [list]="chartList"
+  [title]="'Net income is ' + (monthlyIncome - monthlyExpenses) + ' per month and ' + (yearlyIncome - yearlyExpenses) + ' per year'"
+  [perMonth]="monthlyIncome - monthlyExpenses"
+  [perYear]="yearlyIncome - yearlyExpenses"></app-chart>
