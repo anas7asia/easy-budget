@@ -3,12 +3,16 @@ import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AddBudgetSheetComponent } from './add-budget-sheet.component';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('AddBudgetSheetComponent', () => {
   let component: AddBudgetSheetComponent;
   let fixture: ComponentFixture<AddBudgetSheetComponent>;
 
   beforeEach(async(() => {
+    TestBed.overrideComponent(AddBudgetSheetComponent, { add: {
+      changeDetection: ChangeDetectionStrategy.Default
+    }});
     TestBed.configureTestingModule({
       declarations: [ AddBudgetSheetComponent ],
       imports: [ 

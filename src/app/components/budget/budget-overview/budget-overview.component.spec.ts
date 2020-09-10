@@ -56,6 +56,39 @@ describe('BudgetOverviewComponent', () => {
       strokeDashoffset: "-0",
       strokeWidth: 2
     })
+  });
 
+  it('should calculate positive net income', () => {
+    component.yearlyIncome = 36000;
+    component.yearlyExpenses = 24000;
+    component.monthlyIncome = 3000;
+    component.monthlyExpenses = 2000;
+
+    component.ngOnChanges({
+      yearlyIncome: new SimpleChange(undefined, 36000, true),
+      yearlyExpenses: new SimpleChange(undefined, 24000, true),
+      monthlyIncome: new SimpleChange(undefined, 3000, true),
+      monthlyExpenses: new SimpleChange(undefined, 2000, true)
+    });
+
+    expect(component.perMonth).toBe('+1000');
+    expect(component.perYear).toBe('+12000');
+  });
+
+  it('should calculate negative net income', () => {
+    component.yearlyIncome = 24000;
+    component.yearlyExpenses = 36000;
+    component.monthlyIncome = 2000;
+    component.monthlyExpenses = 3000;
+
+    component.ngOnChanges({
+      yearlyIncome: new SimpleChange(undefined, 24000, true),
+      yearlyExpenses: new SimpleChange(undefined, 36000, true),
+      monthlyIncome: new SimpleChange(undefined, 2000, true),
+      monthlyExpenses: new SimpleChange(undefined, 3000, true)
+    });
+
+    expect(component.perMonth).toBe('-1000');
+    expect(component.perYear).toBe('-12000');
   });
 });
