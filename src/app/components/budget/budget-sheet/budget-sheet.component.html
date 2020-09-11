@@ -1,7 +1,7 @@
-<section class="sheet-container">
-  <div class="sheet-header">
-    <h3 class="sheet-title">{{ sheet.title }}</h3> 
-    <button class="btn-delete-sheet" (click)="deleteSheet()" title="Delete">
+<section class="sheet">
+  <div class="sheet__header">
+    <h3 class="sheet__title">{{ sheet.title }}</h3> 
+    <button class="delete-sheet__btn" (click)="deleteSheet()" title="Delete">
       <span class="fas fa-trash"></span>
     </button>
   </div>
@@ -10,7 +10,7 @@
     [style.width]="calcPercentage(sheet.yearlySubtotal, totalYearlyIncome) + '%'"
     [style.backgroundColor]="sheet.color">
 
-  <div class="table-wrapper">
+  <div class="sheet__table">
     <table>
   
       <thead>
@@ -30,21 +30,21 @@
           <td>{{ item.yearly }}</td>
           <td>{{ calcPercentage(item.yearly, totalYearlyIncome) }}%</td>
           <td>
-            <button class="btn-delete-item" title="Delete this item" (click)="deleteItem(item.id)">
+            <button class="delete-item__btn" title="Delete this item" (click)="deleteItem(item.id)">
               <span class="fas fa-trash"></span>
             </button>
           </td>
         </tr>
   
         <tr>
-          <td colspan="5" class="add-row-container">
-            <button class="btn-add-row" id="js-add-item" (click)="showAddItemForm()">
+          <td colspan="5" class="add-row">
+            <button class="add-row__btn" id="js-add-item" (click)="showAddItemForm()">
               <ng-container *ngIf="!isAddingItem">+</ng-container>
               <ng-container *ngIf="isAddingItem">-</ng-container>
             </button>
   
             <ng-container *ngIf="isAddingItem">
-              <form class="form-add-item" [formGroup]="newItemForm" (submit)="addNewItem()">
+              <form class="add-item__form" [formGroup]="newItemForm" (submit)="addNewItem()">
                   <input formControlName="label" type="text" placeholder="Label">
                   <input formControlName="monthly" type="number" placeholder="10">
                   <input formControlName="yearly" type="number" placeholder="120">

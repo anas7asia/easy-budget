@@ -5,12 +5,12 @@
   margin: 2.75rem 0;
 }
 
-.sheet-header {
+.sheet__header {
   display: flex;
   margin-bottom: .45rem;
 }
 
-.sheet-title {
+.sheet__title {
   font-family: $font-pretty;
   font-size: 1.4rem;
   text-align: left;
@@ -30,7 +30,7 @@ hr {
 Table styles
 */
 
-.table-wrapper {
+.sheet__table {
   overflow-x: auto; // responsive table should be scrollable
 }
 
@@ -57,7 +57,7 @@ tfoot {
 // action buttons are visible only for one row at a time
 tr {
   &:hover {
-    .btn-delete-item {
+    .delete-item__btn {
       visibility: visible;
     }
   }
@@ -90,29 +90,29 @@ table th {
 /* 
 Sheet actions:
 
-when a sheet container is hovered over, all the actions become visible
+when a sheet is hovered over, all the actions become visible
 */
-.sheet-container {
+.sheet {
   position: relative;
 
   &:hover {
-    .btn-add-row {
+    .add-row__btn {
       visibility: visible;
     }
 
-    .btn-delete-sheet {
+    .delete-sheet__btn {
       visibility: visible;
     }
   }
 }
 
-.add-row-container {
+.add-row {
   position: relative;
   padding: 0 !important;
   border: 0 !important;
 }
 
-.btn-add-row {
+.add-row__btn {
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -133,8 +133,8 @@ when a sheet container is hovered over, all the actions become visible
   }
 }
 
-.btn-delete-sheet,
-.btn-delete-item {
+.delete-sheet__btn,
+.delete-item__btn {
   visibility: hidden;
   padding: 0;
   background-color: transparent;
@@ -148,7 +148,7 @@ when a sheet container is hovered over, all the actions become visible
   }
 }
 
-.btn-delete-sheet {
+.delete-sheet__btn {
   margin-left: .75rem;
 }
 
@@ -156,7 +156,7 @@ when a sheet container is hovered over, all the actions become visible
 /* 
 Add item Form 
 */
-.form-add-item {
+.add-item__form {
   display: grid;
   grid-template-columns: $first-column-width 19% 19% 15%; // partially imitates table layout
   grid-column-gap: 1%;

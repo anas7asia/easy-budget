@@ -23,7 +23,7 @@
   </section>
   
   <section class="category" id="js-income">
-    <h2 class="category-title">Money In</h2>
+    <h2 class="category__title">Money In</h2>
 
     <ng-container *ngFor="let s of incomeSheets$ | async">
       <app-budget-sheet 
@@ -39,7 +39,7 @@
   </section>
   
   <section class="category" id="js-expenses">
-    <h2 class="category-title">Money Out</h2>
+    <h2 class="category__title">Money Out</h2>
   
     <ng-container *ngFor="let s of expensesSheets$ | async">
       <app-budget-sheet 
